@@ -5,7 +5,7 @@ import os
 
 
 def data_github_monthly(repo_name, directory, goal):
-    df_raw = pd.read_csv(directory + repo_name, sep=',')
+    df_raw = pd.read_csv(os.path.join(directory, repo_name), sep=',')
     df_raw = df_raw.drop(columns=['dates'])
     last_col = ''
     if goal == 0:

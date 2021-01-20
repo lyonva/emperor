@@ -17,7 +17,8 @@ def data_select(source, destination, size):
     
     # Transfer to destination
     for file in selected:
-        copyfile( source + "/" + file, destination + "/" + file )
+        
+        copyfile( os.path.join(source, file), os.path.join(destination, file) )
     
 
 if __name__ == '__main__':
