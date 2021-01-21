@@ -21,7 +21,7 @@ def data_select(source, destination, size):
         copyfile( os.path.join(source, file), os.path.join(destination, file) )
     
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     source = "./data_use"
     destination = "./data_selected"
     
