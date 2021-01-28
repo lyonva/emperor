@@ -37,4 +37,4 @@ if __name__ == "__main__":
     historic = "./data_archive"
     
     data_move(destination, historic) # Move already used data
-    data_select(source, destination, 32, other=historic)
+    data_select(source, destination, 0, other=historic)

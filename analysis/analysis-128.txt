@@ -1,0 +1,21 @@
+Result for sa:
+   1 DifferentialEvolutionCV (                         |                       *), -0.078,  0.158,  0.265,  0.368,  0.458
+   1 RandomRangeSearchCV (                         |                      * ), -0.172,  0.139,  0.283,  0.354,  0.478
+
+
+Result for sa_md:
+   1 DifferentialEvolutionCV (     *-------------------|--------------     [4;33mReloaded modules[24m: sk[0m
+,  0.339
+   2 RandomRangeSearchCV (               *---------|-------------           ), 0.333,  0.010,  -0.779,  0.481,  0.396
+
+
+Result for mar:
+   1 RandomRangeSearchCV (     --*-------------    |                        ), 5.568,  13.209,  20.464,  29.414,  57.499
+   1 DifferentialEvolutionCV (    ---*------------     |                        ), 5.196,  12.626,  21.347,  29.697,  57.507
+
+
+Result for mdmre:
+   1 DifferentialEvolutionCV (*                        |                        ), 0.323,  0.504,  0.697,  0.943,  2.300
+   2 RandomRangeSearchCV (*                        |                        ), 0.344,  0.545,  0.745,  1.000,  3.667
+
+
