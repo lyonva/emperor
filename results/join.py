@@ -1,8 +1,8 @@
 import os
 import pandas as pd
 
-result_name = "result-%s-goals-0-2.csv"
-goals = [0, 1, 2]
+result_name = "result-%s-goals-0-3.csv"
+goals = [0, 1, 2, 3]
 goals = ["goal%d" % g for g in goals]
 
 file_types = ["metrics", "predictions"]

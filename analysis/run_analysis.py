@@ -9,8 +9,8 @@ sns.set_theme(style="whitegrid")
 sns.set_palette("gray", 3)
 
 data_dir = "../results"
-data_name = "result-metrics-goals-0-2.csv"
-output_name = "analysis-goals-0-2"
+data_name = "result-metrics-goals-0-3.csv"
+output_name = "analysis-goals-0-3"
 
 goal_names = ['monthly_commits', 'monthly_contributors', 'monthly_open_PRs',
               'monthly_closed_PRs', 'monthly_open_issues', 'monthly_closed_issues']
@@ -22,7 +22,7 @@ df = pd.read_csv(os.path.join(data_dir, data_name), sep=',')
 df = df.sort_values(["goal", "dataset", "model", "tuner"])
 
 # Remove projects
-projects_remove = ["project0175.csv"]
+projects_remove = ["project0066.csv", "project0175.csv", "project0855.csv"]
 df = df[ [ d not in projects_remove for d in df["dataset"] ] ]
 
 # Unique lists for filtering

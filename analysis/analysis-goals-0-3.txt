@@ -1,0 +1,56 @@
+Goal monthly_commits:
+Result for sa:
+   1    DodgeCV (                         |     --*----            ), -0.046,  0.181,  0.267,  0.359,  0.469
+   1 DifferentialEvolutionCV (                         |      --*---            ), -0.047,  0.162,  0.272,  0.371,  0.458
+   1 RandomRangeSearchCV (                         |      ---*---           ), -0.132,  0.140,  0.284,  0.356,  0.478
+
+
+Goal monthly_commits:
+Result for mar:
+   1 RandomRangeSearchCV (     --*-------------    |                        ), 5.888,  13.952,  20.464,  29.571,  57.499
+   1 DifferentialEvolutionCV (    ---*------------     |                        ), 5.371,  12.923,  21.347,  29.930,  57.507
+   1    DodgeCV (    ---*-----------      |                        ), 5.830,  13.048,  21.935,  30.309,  53.273
+
+
+Goal monthly_contributors:
+Result for sa:
+   1 DifferentialEvolutionCV (                       --|*--------               ), 0.224,  0.340,  0.412,  0.518,  0.657
+   1    DodgeCV (                    -----*--------                ), 0.204,  0.335,  0.448,  0.549,  0.650
+   1 RandomRangeSearchCV (                    -----*-------                 ), 0.187,  0.336,  0.452,  0.525,  0.626
+
+
+Goal monthly_contributors:
+Result for mar:
+   1    DodgeCV (   ---*---------         |                        ), 0.282,  0.625,  1.149,  1.596,  2.905
+   1 RandomRangeSearchCV (   ---*--------          |                        ), 0.308,  0.657,  1.157,  1.669,  2.736
+   1 DifferentialEvolutionCV (   ---*---------         |                        ), 0.299,  0.678,  1.165,  1.689,  2.741
+
+
+Goal monthly_open_PRs:
+Result for sa:
+   1 DifferentialEvolutionCV (                         |            --*--       ), -0.785,  0.097,  0.240,  0.341,  0.523
+   1 RandomRangeSearchCV (                         |             --*--      ), -0.853,  0.074,  0.247,  0.331,  0.501
+   1    DodgeCV (                         |              --*--     ), -0.479,  0.085,  0.252,  0.365,  0.526
+
+
+Goal monthly_open_PRs:
+Result for mar:
+   1 DifferentialEvolutionCV (  -*------------         |                        ), 7.581,  13.735,  21.607,  39.046,  91.532
+   1 RandomRangeSearchCV (  --*------------        |                        ), 7.466,  14.321,  21.922,  43.004,  96.627
+   1    DodgeCV (  --*------------        |                        ), 7.572,  14.565,  22.135,  37.287,  92.057
+
+
+Goal monthly_closed_PRs:
+Result for sa:
+   1 RandomRangeSearchCV (                         | ---*------             ), 0.213,  0.368,  0.451,  0.552,  0.642
+   1 DifferentialEvolutionCV (                         |    ----*---            ), 0.130,  0.375,  0.498,  0.560,  0.638
+   1    DodgeCV (                         |          --*---        ), 0.125,  0.413,  0.502,  0.580,  0.685
+
+
+Goal monthly_closed_PRs:
+Result for mar:
+   1    DodgeCV ( --*--------------       |                        ), 0.259,  0.808,  1.864,  3.810,  10.570
+   1 RandomRangeSearchCV ( --*-----------          |                        ), 0.267,  0.829,  1.939,  4.040,  9.181
+   1 DifferentialEvolutionCV ( --*---------            |                        ), 0.299,  0.792,  2.113,  3.776,  9.163
+
+
