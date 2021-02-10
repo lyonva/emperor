@@ -1,7 +1,5 @@
 import numpy as np
 
-
-
 def marp0(actual, n_runs = 1000):
     res = 0
     std = 0
@@ -50,6 +48,15 @@ def mdarp0(actual, n_runs = 1000):
         
     return res, std
 
+# Mean baseline
+def mean(actual):
+    med = np.mean(actual)
+    return mar(actual, med), sdar(actual, med)
+
+# Median baseline
+def median(actual):
+    med = np.median(actual)
+    return mdar(actual, med), sdar(actual, med)
 
 # Standarized accuracy
 # Using mean
@@ -58,7 +65,7 @@ def sa(y_true, y_pred):
 
 # Using median
 def sa_md(y_true, y_pred):
-    return 1 - ( mdar(y_true, y_pred) / mdarp0( y_true )[0] )
+    return 1 - ( mdar(y_true, y_pred) / median( y_true )[0] )
 
 # Effect size of SA, also known as Glass's delta
 # Using mean
@@ -79,7 +86,7 @@ def sd(y_true, y_pred):
 
 # Using median
 def sd_md(y_true, y_pred):
-    return 1 - ( sdar(y_true, y_pred) / mdarp0( y_true )[1] )
+    return 1 - ( sdar(y_true, y_pred) / median( y_true )[1] )
 
 # Absolute error, aka absolute resuidual or AR
 def ae_i(y_true, y_pred):

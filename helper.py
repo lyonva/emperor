@@ -20,11 +20,12 @@ def print_progress(dataset_name, i, model_name, tuner_name):
     print("-"*30)
     print()
 
-def save_prediction(dataset_name, model_name, tuner_name, y_true, y_pred):
+def save_prediction(dataset_name, goal, model_name, tuner_name, y_true, y_pred):
     # Convert results to dataframe format
     n = y_true.size
     predictions = {}
     predictions["dataset"] = np.repeat(dataset_name, n)
+    predictions["goal"] = np.repeat(goal, n)
     predictions["model"] = np.repeat(model_name, n)
     predictions["tuner"] = np.repeat(tuner_name, n)
     predictions["iteration"] = range(n)
@@ -44,10 +45,11 @@ def save_prediction(dataset_name, model_name, tuner_name, y_true, y_pred):
     # Store status
     SingletonDataframes.__prediction_df__ = prediction_df
 
-def save_metrics(dataset_name, model_name, tuner_name, metrics):
+def save_metrics(dataset_name, goal, model_name, tuner_name, metrics):
     # Convert results to dataframe format
     metrics = metrics.copy()
     metrics["dataset"] = dataset_name
+    metrics["goal"] = goal
     metrics["model"] = model_name
     metrics["tuner"] = tuner_name
     metrics = dict( [(key, [val]) for key, val in metrics.items()] )

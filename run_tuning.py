@@ -6,12 +6,13 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import LeaveOneOut
 from tuning import DifferentialEvolutionCV
 from tuning import RandomRangeSearchCV
+from tuning import DodgeCV
 from sklearn.metrics import make_scorer
 from evaluation import mdar, evaluate
 from helper import print_progress, save_prediction, save_metrics
 
 # General config
-goal = 0 # Prediction objective
+goal = 3 # Prediction objective
 data_dir = "data/data_selected" # Datasets you want to use
 
 
@@ -30,21 +31,27 @@ model_ranges = [
 ]
 
 # Hyper-parameter tuners
-tuners = [DifferentialEvolutionCV, RandomRangeSearchCV]
+tuners = [DifferentialEvolutionCV, RandomRangeSearchCV, DodgeCV]
 tuner_params = [
     # Differential Evolution
     {"population_size":20,
-     "mutation_rate" : 0.75,
-     "crossover_rate" : 0.3,
-     "iterations": 10
-     },
+      "mutation_rate" : 0.75,
+      "crossover_rate" : 0.3,
+      "iterations": 10
+      },
     # Random Search
     {"n_iter":60
+      },
+    # Dodge
+    {"epsilon": 0.01,
+     "initial_size": 12,
+     "population_size": 60
      }
 ]
+
 tuner_scoring = make_scorer(mdar, greater_is_better=False)
 tuner_cv = LeaveOneOut()
-n_jobs = -1
+n_jobs = 3
 
 # Metrics
 metric_names = ["sa", "sa_md", "sd", "mar", "mdar", "sdar", "mmre", "mdmre", "pred"]
@@ -92,7 +99,7 @@ for X, y in datasets:
             metrics = evaluate(y_true, y_pred, metric_names)
             
             # Save results
-            save_prediction(dataset_name, model_name, tuner_name, y_true, y_pred)
-            save_metrics(dataset_name, model_name, tuner_name, metrics)
+            save_prediction(dataset_name, goal, model_name, tuner_name, y_true, y_pred)
+            save_metrics(dataset_name, goal, model_name, tuner_name, metrics)
             
 

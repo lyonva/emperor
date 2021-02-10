@@ -2,8 +2,10 @@ import sk
 import os
 import pandas as pd
 import sys
+import matplotlib.pyplot as plt
+import numpy as np
 
-data_dir = "data_results"
+data_dir = "../results"
 data_name = "result-128.csv"
 output_name = "analysis-128.txt"
 
@@ -37,3 +39,19 @@ for metric in metrics:
 
 # Return output to stdout
 sys.stdout = original_stdout
+
+# Generate box-plots
+for metric in metrics:
+    # Select feature corresponding to metric
+    met_list = [ list( tdf[metric] ) for tdf in tuners_df ]
+    plt.boxplot( met_list, labels = tuners )
+
+# Find outliers
+
+for tuner in tuners:
+    tuner_frame = tuner_dict[tuner]
+    for metric in metrics:
+        distribution = tuner_frame[metric]
+        q1, q3= np.percentile(distribution,[25,75])
+        print(q1, q3)
+        
