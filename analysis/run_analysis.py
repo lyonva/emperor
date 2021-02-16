@@ -9,10 +9,10 @@ sns.set_theme(style="whitegrid")
 sns.set_palette("gray", 3)
 
 data_dir = "../results"
-data_name = "result-metrics-goals-0-3.csv"
-output_name = "analysis-goals-0-3"
+data_name = "result-metrics-goals-0-6.csv"
+output_name = "analysis-goals-0-6"
 
-goal_names = ['monthly_commits', 'monthly_contributors', 'monthly_open_PRs',
+goal_names = ['monthly_commits', 'monthly_contributors', 'monthly_stargazer', 'monthly_open_PRs',
               'monthly_closed_PRs', 'monthly_open_issues', 'monthly_closed_issues']
 metrics = ["sa", "mar"]
 
@@ -20,10 +20,6 @@ df = pd.read_csv(os.path.join(data_dir, data_name), sep=',')
 
 # Data may come disorganized, sort by goal > dataset > model > tuner
 df = df.sort_values(["goal", "dataset", "model", "tuner"])
-
-# Remove projects
-projects_remove = ["project0066.csv", "project0175.csv", "project0855.csv"]
-df = df[ [ d not in projects_remove for d in df["dataset"] ] ]
 
 # Unique lists for filtering
 goals = np.unique(df["goal"])
@@ -47,6 +43,12 @@ for goal in goals:
         # Select feature corresponding to metric
         met_list = [ list( tdf[metric] ) for tdf in tuners_df ]
         met_dict = dict( zip( tuners, met_list ) )
+        
+        # Drop rows with na and inf
+        met_df = pd.DataFrame.from_dict( met_dict )
+        met_df = met_df.replace([np.inf, -np.inf], np.nan)
+        met_df = met_df.dropna(axis=0)
+        met_dict = met_df.to_dict("list")
         
         # Run scott-knott on current metric
         print("Goal %s:" % goal_names[goal])

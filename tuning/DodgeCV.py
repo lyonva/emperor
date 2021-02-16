@@ -12,7 +12,7 @@ from sklearn.tree import DecisionTreeRegressor
 # Adapted to the scikit learn BaseSearchCV class
 class DodgeCV(BaseSearchCV):
     def __init__(self, estimator, search_space, epsilon,
-                 initial_size, population_size,
+                 initial_size = 15, population_size = 30,
                  *, scoring=None, n_jobs=None, iid='deprecated', refit=True,
                  cv=None, verbose=0, pre_dispatch='2*n_jobs', error_score=np.nan,
                  return_train_score=True):

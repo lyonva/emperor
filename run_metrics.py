@@ -5,8 +5,8 @@ from helper import save_metrics
 import os
 
 results_dir = "results"
-prediction_file = "result-predictions-goals-0-3.csv"
-result_file = "result-metrics-goals-0-3.csv"
+prediction_file = "result-predictions-goals-0-6.csv"
+result_file = "result-metrics-goals-0-6.csv"
 
 df_predictions = pd.read_csv(os.path.join(results_dir, prediction_file),index_col = None)
 df_predictions = df_predictions.sort_values(["goal", "dataset", "tuner", "model", "iteration"])

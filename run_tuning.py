@@ -3,7 +3,7 @@ import numpy as np
 from comp.OnlineCV import OnlineCV
 from data import load_datasets
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.model_selection import LeaveOneOut
+from sklearn.model_selection import LeaveOneOut, GridSearchCV
 from tuning import DifferentialEvolutionCV
 from tuning import RandomRangeSearchCV
 from tuning import DodgeCV
@@ -12,7 +12,7 @@ from evaluation import mdar, evaluate
 from helper import print_progress, save_prediction, save_metrics
 
 # General config
-goal = 3 # Prediction objective
+goal = 1 # Prediction objective
 data_dir = "data/data_selected" # Datasets you want to use
 
 
@@ -21,33 +21,48 @@ cross_validation = OnlineCV()
 
 # Machine learning algorithms
 models = [DecisionTreeRegressor]
+# model_ranges = [
+#     # Decision Tree Regressor
+#     {"max_features": [0.01, 1.0],
+#      "max_depth": [1, 12],
+#      "min_samples_split": [2, 20],
+#      "min_samples_leaf": [1, 12]
+#     }
+# ]
+# For Grid Search
 model_ranges = [
     # Decision Tree Regressor
-    {"max_features": [0.01, 1.0],
-     "max_depth": [1, 12],
+    {"max_features": [0.01, 0.1, 0.25, 0.5, 1.0],
+     "max_depth": [1, 6, 12],
      "min_samples_split": [2, 20],
      "min_samples_leaf": [1, 12]
     }
 ]
 
 # Hyper-parameter tuners
-tuners = [DifferentialEvolutionCV, RandomRangeSearchCV, DodgeCV]
+# tuners = [DifferentialEvolutionCV, RandomRangeSearchCV, DodgeCV]
+# tuner_params = [
+#     # Differential Evolution
+#     {"population_size":20,
+#       "mutation_rate" : 0.75,
+#       "crossover_rate" : 0.3,
+#       "iterations": 10
+#       },
+#     # Random Search
+#     {"n_iter":60
+#       },
+#     # Dodge
+#     {"epsilon": 0.01,
+#      "initial_size": 12,
+#      "population_size": 60
+#      }
+# ]
+# Grid Search
+tuners = [GridSearchCV]
 tuner_params = [
-    # Differential Evolution
-    {"population_size":20,
-      "mutation_rate" : 0.75,
-      "crossover_rate" : 0.3,
-      "iterations": 10
-      },
-    # Random Search
-    {"n_iter":60
-      },
-    # Dodge
-    {"epsilon": 0.01,
-     "initial_size": 12,
-     "population_size": 60
-     }
+    {}
 ]
+
 
 tuner_scoring = make_scorer(mdar, greater_is_better=False)
 tuner_cv = LeaveOneOut()
