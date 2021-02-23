@@ -93,8 +93,27 @@ def ae_i(y_true, y_pred):
     return np.abs(y_true - y_pred)
 
 # Magnitude of relative error
+# def mre(y_true, y_pred):
+#     return ae_i(y_true, y_pred) / y_true
+
+# Magnitude of relative error
+# With fixes by Xia et al. to account for zeros in the data
 def mre(y_true, y_pred):
-    return ae_i(y_true, y_pred) / y_true
+    res = []
+    for pred, actual in zip(y_pred, y_true):
+        score = 0
+        if actual == 0:
+            if pred == 0:
+                score = 0
+            elif abs(pred) < 0:
+                score = 1
+            else:
+                score = (abs(pred - actual) + 1) / (actual + 1)
+        else:
+            score = abs(pred - actual) / actual
+        res.append(score)
+    return np.array(res)
+                
 
 # Mean magnitude of relative error
 def mmre(y_true, y_pred):

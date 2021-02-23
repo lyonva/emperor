@@ -41,8 +41,10 @@ model_ranges = [
 # ]
 
 # Hyper-parameter tuners
-# tuners = [DifferentialEvolutionCV, RandomRangeSearchCV, DodgeCV]
+tuners = [DefaultCV, DifferentialEvolutionCV, RandomRangeSearchCV, DodgeCV]
 tuner_params = [
+    # Default
+    {},
     # Differential Evolution
     {"population_size":20,
       "mutation_rate" : 0.75,
