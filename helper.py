@@ -9,6 +9,7 @@ class SingletonDataframes:
     __time__ = datetime.datetime.now()
     __metrics_df__ = pd.DataFrame()
     __prediction_df__ = pd.DataFrame()
+    __parameters_df__ = pd.DataFrame()
 
 def print_progress(dataset_name, i, model_name, tuner_name):
     print("-"*30)
@@ -66,3 +67,27 @@ def save_metrics(dataset_name, goal, model_name, tuner_name, metrics):
     
     # Store status
     SingletonDataframes.__metrics_df__ = metrics_df
+
+def save_parameters(dataset_name, goal, iteration, model_name, tuner_name, cv_results):
+    # Convert results to dataframe format
+    n = len(cv_results["params"])
+    keys = ["mean_test_score", "rank_test_score"] + [p for p in cv_results.keys() if "param_" in p] # Keys to copy
+    params = { key:val for key, val in cv_results.items() if key in keys }
+    params["dataset"] = np.repeat(dataset_name, n)
+    params["goal"] = np.repeat(goal, n)
+    params["model"] = np.repeat(model_name, n)
+    params["tuner"] = np.repeat(tuner_name, n)
+    params["iteration"] = np.repeat(iteration, n)
+    df_row = pd.DataFrame.from_dict(params)
+    
+    # Load current status
+    current_df = SingletonDataframes.__parameters_df__
+    time = SingletonDataframes.__time__
+    
+    # Add new row to data and save
+    parameters_df = pd.concat([current_df, df_row])
+    file_path = os.path.join( save_dir, "emperor-parameters-%s.csv" % time.strftime('%Y-%m-%d_%H-%M-%S') )
+    parameters_df.to_csv(file_path, index=False)
+    
+    # Store status
+    SingletonDataframes.__parameters_df__ = parameters_df

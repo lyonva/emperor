@@ -14,8 +14,8 @@ class MonthlyCV(BaseCrossValidator):
         yield [X.shape[1] - 1]
     
     def split(self, X, y=None, groups=None):
-        train_index = np.arange(0, (X.shape[1]-self.skip-1))
-        test_index  = [X.shape[1] - 1]
+        train_index = [ i for i in range(0, (X.shape[0]-self.skip-1)) ]
+        test_index  = [X.shape[0] - 1]
         yield train_index, test_index
     
     def get_n_splits(self, X, y=None, groups=None):

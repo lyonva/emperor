@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from comp.OnlineCV import OnlineCV
+from comp.MonthlyCV import MonthlyCV
 from data import load_datasets
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import LeaveOneOut, GridSearchCV
@@ -9,8 +10,8 @@ from tuning import RandomRangeSearchCV
 from tuning import DodgeCV
 from tuning import DefaultCV
 from sklearn.metrics import make_scorer
-from evaluation import mdar, evaluate
-from helper import print_progress, save_prediction, save_metrics
+from evaluation import sa, evaluate
+from helper import print_progress, save_prediction, save_metrics, save_parameters
 
 # General config
 goal = 0 # Prediction objective
@@ -18,7 +19,8 @@ data_dir = "data/data_selected" # Datasets you want to use
 
 
 datasets = load_datasets(data_dir, goal)
-cross_validation = OnlineCV()
+# cross_validation = OnlineCV()
+cross_validation = MonthlyCV()
 
 # Machine learning algorithms
 models = [DecisionTreeRegressor]
@@ -79,12 +81,13 @@ tuner_params = [
 # ]
 
 
-tuner_scoring = make_scorer(mdar, greater_is_better=False)
-tuner_cv = LeaveOneOut()
+tuner_scoring = make_scorer(sa, greater_is_better=True)
+# tuner_cv = LeaveOneOut()
+tuner_cv = MonthlyCV()
 n_jobs = 1
 
 # Metrics
-metric_names = ["sa", "sa_md", "sd", "mar", "mdar", "sdar", "mmre", "mdmre", "pred"]
+metric_names = ["sa", "mar", "sdar", "mmre"]
 
 for X, y in datasets:
     for model_class, search_space in zip(models, model_ranges):
@@ -122,14 +125,18 @@ for X, y in datasets:
                 # Test and save metrics
                 y_pred.extend( model.predict(X_test) )
                 y_true.extend( y_test )
+                
+                # Save results of tuning
+                save_parameters(dataset_name, goal, i, model_name, tuner_name, tuner.cv_results_)
             
             # Evaluate the obtained results
-            y_true = np.array(y_true)
+            y_true = np.rint(np.array(y_true))
             y_pred = np.array(y_pred)
             metrics = evaluate(y_true, y_pred, metric_names)
             
             # Save results
             save_prediction(dataset_name, goal, model_name, tuner_name, y_true, y_pred)
             save_metrics(dataset_name, goal, model_name, tuner_name, metrics)
+            
             
 
