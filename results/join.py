@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-result_name = "result-%s-goals-0-6.csv"
+result_name = "result-%s-goals-0-6+grid.csv"
 goals = [0, 1, 2, 3, 4, 5, 6]
 goals = ["goal%d" % g for g in goals]
 

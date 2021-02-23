@@ -9,8 +9,10 @@ sns.set_theme(style="whitegrid")
 sns.set_palette("gray", 3)
 
 data_dir = "../results"
-data_name = "result-metrics-goals-0-6.csv"
-output_name = "analysis-goals-0-6"
+data_name = "result-metrics-goals-0-6+grid.csv"
+output_name = "analysis-goals-0-6+grid"
+dimensionality_name = "health_indicator_output.csv"
+random_n_name = "RandomN/result-metrics-goal0-randomN.csv"
 
 goal_names = ['monthly_commits', 'monthly_contributors', 'monthly_stargazer', 'monthly_open_PRs',
               'monthly_closed_PRs', 'monthly_open_issues', 'monthly_closed_issues']
@@ -79,7 +81,8 @@ df_boxplot["goal_name"] = df_boxplot.apply( lambda x : goal_names[x["goal"]], ax
 df_boxplot["tuner_short"] = df_boxplot.apply( lambda x : 
                                              {'DifferentialEvolutionCV' : "DE",
                                               'DodgeCV' : "DODGE",
-                                              'RandomRangeSearchCV' : "Random"
+                                              'RandomRangeSearchCV' : "Random",
+                                              'GridSearchCV' : "Grid"
                                               }[x["tuner"]], axis = 1)
 
 sns.set(font_scale=1.4)
@@ -106,4 +109,60 @@ plot.savefig("%s.png" % output_name)
 #         distribution = tuner_frame[metric]
 #         q1, q3= np.percentile(distribution,[25,75])
 #         print(q1, q3)
-        
+
+# Intrinsic dimensionality analysis
+datasets = np.unique(df["dataset"])
+dimensionality = pd.read_csv(dimensionality_name, sep=',')
+dimensionality["Dataset"] = dimensionality["Dataset"].str.lower() + ".csv"
+dimensionality = dimensionality.rename(columns={"Dataset":"dataset"})
+dimensionality = dimensionality[ dimensionality["dataset"].isin(datasets) ]
+
+fig, ax = plt.subplots()
+plot = sns.scatterplot( x = "intrinsic dim_L1", y = "intrinsic dim_L2",
+                   data = dimensionality, color="b" )
+plot.set(xlabel = "Intrinsic dimensionality (L1)", ylabel = "Intrinsic dimensionality (L2)")
+fig.set_size_inches(10, 5)
+plot.get_figure().savefig("dimensionality.png", dpi=300)
+
+
+random_df = df[ df["tuner"] == "RandomRangeSearchCV" ]
+random_df = random_df.replace([np.inf, -np.inf], np.nan)
+random_df = random_df.dropna(axis=0)
+
+for goal in goals:
+    rs_goal_df = random_df[random_df["goal"] == goal]
+    rs_goal_df = rs_goal_df.join(dimensionality.set_index('dataset'), on="dataset")
+    
+    fig, ax = plt.subplots()
+    plot = sns.regplot( x = "intrinsic dim_L1", y = "sa", data = rs_goal_df, color="b", line_kws = {"linewidth":0.75} )
+    plot.set(xlabel = "Intrinsic dimensionality (L1)", ylabel = "SA", ylim = [-3, 3])
+    fig.set_size_inches(10, 5)
+    plot.get_figure().savefig("%s-%s.png" % ("sa-dim-goal", goal), dpi=300)
+  
+    
+# Amount of explored values analysis
+df_random_n = pd.read_csv(os.path.join(data_dir, random_n_name), sep=',')
+df_random_n = df_random_n[df_random_n["sa"] > -5]
+# df_random_n = df_random_n[df_random_n["n"] > 0]
+# df_random_n["n"] = df_random_n["n"].replace(0,1)
+
+fig, ax = plt.subplots()
+plot = sns.regplot(x = "n", y = "sa", data = df_random_n, order=2, color="b", x_estimator=np.median)
+plot.set(xlabel = "Amount of random samples (n)", ylabel = "SA", xlim = [0, 65])
+fig.set_size_inches(10, 5)
+plot.get_figure().savefig("randomN.png", dpi=300)
+
+fig, ax = plt.subplots()
+plot = sns.boxplot(x = "n", y = "sa", data = df_random_n, color="b")
+plot.set(xlabel = "Amount of random samples (n)", ylabel = "SA", ylim = [-1,1])
+plot.get_figure().savefig("randomN.png", dpi=300)
+fig.set_size_inches(10, 5)
+plot.get_figure().savefig("randomN-Box.png", dpi=300)
+
+fig, ax = plt.subplots()
+plot = sns.boxplot(x = "n", y = "mar", data = df_random_n, color="b")
+plot.set(xlabel = "Amount of random samples (n)", ylabel = "MAR")
+plot.get_figure().savefig("randomN.png", dpi=300)
+fig.set_size_inches(10, 5)
+plot.get_figure().savefig("randomN-Box-MAR.png", dpi=300)
+

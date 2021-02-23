@@ -1,0 +1,112 @@
+Goal monthly_commits:
+Result for sa:
+   1 GridSearchCV (                         |                      * ), 0.123,  0.248,  0.360
+   1 DifferentialEvolutionCV (                         |                       *), 0.142,  0.265,  0.381
+   1    DodgeCV (                         |                       *), 0.156,  0.269,  0.392
+   1 RandomRangeSearchCV (                         |                      * ), 0.120,  0.283,  0.380
+
+
+Goal monthly_commits:
+Result for mar:
+   1 RandomRangeSearchCV (       *-----            |                        ), 12.062,  20.464,  34.586
+   1 DifferentialEvolutionCV (       *---              |                        ), 11.499,  21.347,  33.118
+   1    DodgeCV (       *---              |                        ), 11.196,  21.747,  31.825
+   1 GridSearchCV (        *-----           |                        ), 11.707,  21.844,  35.737
+
+
+Goal monthly_contributors:
+Result for sa:
+   1 GridSearchCV (                         |              *-        ), 0.296,  0.406,  0.560
+   1 DifferentialEvolutionCV (                         |             *--        ), 0.324,  0.412,  0.543
+   1    DodgeCV (                         |       *--              ), 0.308,  0.448,  0.567
+   1 RandomRangeSearchCV (                         |                 *      ), 0.314,  0.450,  0.541
+
+
+Goal monthly_contributors:
+Result for mar:
+   1    DodgeCV (      *---               |                        ), 0.537,  1.120,  1.819
+   1 GridSearchCV (     *---                |                        ), 0.552,  1.120,  1.954
+   1 RandomRangeSearchCV (      *---               |                        ), 0.593,  1.133,  1.829
+   1 DifferentialEvolutionCV (      *---               |                        ), 0.568,  1.148,  1.862
+
+
+Goal monthly_stargazer:
+Result for sa:
+   1 DifferentialEvolutionCV (                         |              *         ), 0.040,  0.240,  0.375
+   1 RandomRangeSearchCV (                         |               *        ), -0.060,  0.247,  0.363
+   1 GridSearchCV (                         |           *-           ), 0.007,  0.252,  0.374
+   1    DodgeCV (                         |                *-      ), 0.033,  0.252,  0.407
+
+
+Goal monthly_stargazer:
+Result for mar:
+   1 GridSearchCV (     *---                |                        ), 13.116,  22.485,  38.656
+   1 RandomRangeSearchCV (    *---                 |                        ), 12.725,  22.838,  48.786
+   1    DodgeCV (    *---                 |                        ), 12.399,  23.198,  45.518
+   1 DifferentialEvolutionCV (    *--                  |                        ), 12.603,  23.490,  44.433
+
+
+Goal monthly_open_PRs:
+Result for sa:
+   1 RandomRangeSearchCV (                         |    *---                ), 0.354,  0.452,  0.559
+   1 GridSearchCV (                         |      *--               ), 0.352,  0.497,  0.588
+   1 DifferentialEvolutionCV (                         |        *--             ), 0.349,  0.498,  0.589
+   1    DodgeCV (                         |            *--         ), 0.370,  0.509,  0.612
+
+
+Goal monthly_open_PRs:
+Result for mar:
+   1    DodgeCV (   *---                  |                        ), 0.620,  1.856,  4.322
+   1 RandomRangeSearchCV (   *---                  |                        ), 0.650,  1.900,  4.830
+   1 GridSearchCV (   *--                   |                        ), 0.619,  1.980,  4.513
+   1 DifferentialEvolutionCV (   *--                   |                        ), 0.603,  2.079,  4.498
+
+
+Goal monthly_closed_PRs:
+Result for sa:
+   1 RandomRangeSearchCV (                         |      *-                ), 0.125,  0.249,  0.351
+   1 GridSearchCV (                         |     *--                ), 0.097,  0.254,  0.372
+   1 DifferentialEvolutionCV (                         |     *--                ), 0.141,  0.261,  0.361
+   1    DodgeCV (                         |    *-                  ), 0.134,  0.263,  0.364
+
+
+Goal monthly_closed_PRs:
+Result for mar:
+   1 DifferentialEvolutionCV (   *-----                |                        ), 0.230,  0.576,  1.443
+   1    DodgeCV (   *----                 |                        ), 0.237,  0.579,  1.433
+   1 RandomRangeSearchCV (   *----                 |                        ), 0.212,  0.581,  1.485
+   1 GridSearchCV (   *----                 |                        ), 0.262,  0.626,  1.466
+
+
+Goal monthly_open_issues:
+Result for sa:
+   1 GridSearchCV (                         |       *--              ), 0.202,  0.316,  0.411
+   1 RandomRangeSearchCV (                         |               *        ), 0.222,  0.318,  0.416
+   1    DodgeCV (                         |           *-           ), 0.201,  0.320,  0.434
+   1 DifferentialEvolutionCV (                         |           *-           ), 0.204,  0.337,  0.436
+
+
+Goal monthly_open_issues:
+Result for mar:
+   1 RandomRangeSearchCV (      *------            |                        ), 0.457,  1.093,  2.118
+   1 GridSearchCV (      *-----             |                        ), 0.522,  1.105,  1.998
+   1 DifferentialEvolutionCV (       *----             |                        ), 0.469,  1.122,  2.030
+   1    DodgeCV (       *----             |                        ), 0.478,  1.136,  1.958
+
+
+Goal monthly_closed_issues:
+Result for sa:
+   1 RandomRangeSearchCV (                         |                   *    ), 0.381,  0.463,  0.540
+   1 DifferentialEvolutionCV (                         |                  *     ), 0.387,  0.470,  0.557
+   1    DodgeCV (                         |                 *      ), 0.388,  0.472,  0.571
+   1 GridSearchCV (                         |                 *      ), 0.359,  0.476,  0.554
+
+
+Goal monthly_closed_issues:
+Result for mar:
+   1    DodgeCV (   *--                   |                        ), 2.755,  6.773,  13.063
+   1 GridSearchCV (   *--                   |                        ), 2.864,  6.980,  14.211
+   1 RandomRangeSearchCV (   *--                   |                        ), 3.064,  7.129,  14.279
+   1 DifferentialEvolutionCV (    *----                |                        ), 2.713,  7.327,  14.602
+
+

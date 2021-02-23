@@ -173,7 +173,7 @@ class Rx(Mine):
     i.med  = i.vals[int(i.n/2)]
     i.mu   = sum(i.vals)/i.n
     i.rank = 1
-  def tiles(i,lo=0,hi=1): return  xtile(i.vals,lo,hi)
+  def tiles(i,lo=0,hi=1): return  xtile(i.vals,lo,hi,chops=[0.25, 0.5, 0.75])
   def __lt__(i,j):        return i.med < j.med
   def __eq__(i,j):
     return cliffsDelta(i.vals,j.vals) and \
