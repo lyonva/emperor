@@ -11,17 +11,18 @@ class SingletonDataframes:
     __prediction_df__ = pd.DataFrame()
     __parameters_df__ = pd.DataFrame()
 
-def print_progress(dataset_name, i, model_name, tuner_name):
-    print("-"*30)
+def print_progress(dataset_name, i, model_name, tuner_name, obj_name):
+    print("-"*40)
     print( datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") )
-    print("%10s: %15s" % ("dataset", dataset_name))
-    print("%10s: %15d" % ("iteration", i))
-    print("%10s: %15s" % ("model", model_name))
-    print("%10s: %15s" % ("tuner", tuner_name))
-    print("-"*30)
+    print("%10s: %25s" % ("dataset", dataset_name))
+    print("%10s: %25s" % ("iteration", i))
+    print("%10s: %25s" % ("model", model_name))
+    print("%10s: %25s" % ("tuner", tuner_name))
+    print("%10s: %25s" % ("objective", obj_name))
+    print("-"*40)
     print()
 
-def save_prediction(dataset_name, goal, model_name, tuner_name,
+def save_prediction(dataset_name, goal, model_name, tuner_name, obj_name,
                     y_true, y_pred, fitting_times, tuning_times):
     # Convert results to dataframe format
     n = y_true.size
@@ -30,6 +31,7 @@ def save_prediction(dataset_name, goal, model_name, tuner_name,
     predictions["goal"] = np.repeat(goal, n)
     predictions["model"] = np.repeat(model_name, n)
     predictions["tuner"] = np.repeat(tuner_name, n)
+    predictions["objective"] = np.repeat(obj_name, n)
     predictions["iteration"] = range(n)
     predictions["y_pred"] = y_pred
     predictions["y_true"] = y_true
@@ -49,7 +51,7 @@ def save_prediction(dataset_name, goal, model_name, tuner_name,
     # Store status
     SingletonDataframes.__prediction_df__ = prediction_df
 
-def save_metrics(dataset_name, goal, model_name, tuner_name,
+def save_metrics(dataset_name, goal, model_name, tuner_name, obj_name,
                  metrics, median_fit_time, median_tuning_time):
     # Convert results to dataframe format
     metrics = metrics.copy()
@@ -57,6 +59,7 @@ def save_metrics(dataset_name, goal, model_name, tuner_name,
     metrics["goal"] = goal
     metrics["model"] = model_name
     metrics["tuner"] = tuner_name
+    metrics["objective"] = obj_name
     metrics["median tuning time (s)"] = median_tuning_time
     metrics["median fitting time (s)"] = median_fit_time
     metrics = dict( [(key, [val]) for key, val in metrics.items()] )
@@ -74,7 +77,8 @@ def save_metrics(dataset_name, goal, model_name, tuner_name,
     # Store status
     SingletonDataframes.__metrics_df__ = metrics_df
 
-def save_parameters(dataset_name, goal, iteration, model_name, tuner_name, cv_results):
+def save_parameters(dataset_name, goal, iteration, model_name, tuner_name,
+                    obj_name, cv_results):
     # Convert results to dataframe format
     n = len(cv_results["params"])
     keys = ["mean_test_score", "rank_test_score"] + [p for p in cv_results.keys() if "param_" in p] # Keys to copy
@@ -83,6 +87,7 @@ def save_parameters(dataset_name, goal, iteration, model_name, tuner_name, cv_re
     params["goal"] = np.repeat(goal, n)
     params["model"] = np.repeat(model_name, n)
     params["tuner"] = np.repeat(tuner_name, n)
+    params["objective"] = np.repeat(obj_name, n)
     params["iteration"] = np.repeat(iteration, n)
     df_row = pd.DataFrame.from_dict(params)
     
