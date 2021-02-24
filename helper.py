@@ -21,7 +21,8 @@ def print_progress(dataset_name, i, model_name, tuner_name):
     print("-"*30)
     print()
 
-def save_prediction(dataset_name, goal, model_name, tuner_name, y_true, y_pred):
+def save_prediction(dataset_name, goal, model_name, tuner_name,
+                    y_true, y_pred, fitting_times, tuning_times):
     # Convert results to dataframe format
     n = y_true.size
     predictions = {}
@@ -32,6 +33,8 @@ def save_prediction(dataset_name, goal, model_name, tuner_name, y_true, y_pred):
     predictions["iteration"] = range(n)
     predictions["y_pred"] = y_pred
     predictions["y_true"] = y_true
+    predictions["tuning time (s)"] = tuning_times
+    predictions["fitting time (s)"] = fitting_times
     df_row = pd.DataFrame.from_dict(predictions)
     
     # Load current status
@@ -46,13 +49,16 @@ def save_prediction(dataset_name, goal, model_name, tuner_name, y_true, y_pred):
     # Store status
     SingletonDataframes.__prediction_df__ = prediction_df
 
-def save_metrics(dataset_name, goal, model_name, tuner_name, metrics):
+def save_metrics(dataset_name, goal, model_name, tuner_name,
+                 metrics, median_fit_time, median_tuning_time):
     # Convert results to dataframe format
     metrics = metrics.copy()
     metrics["dataset"] = dataset_name
     metrics["goal"] = goal
     metrics["model"] = model_name
     metrics["tuner"] = tuner_name
+    metrics["median tuning time (s)"] = median_tuning_time
+    metrics["median fitting time (s)"] = median_fit_time
     metrics = dict( [(key, [val]) for key, val in metrics.items()] )
     df_row = pd.DataFrame.from_dict(metrics)
     

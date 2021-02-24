@@ -12,6 +12,7 @@ from tuning import DefaultCV
 from sklearn.metrics import make_scorer
 from evaluation import sa, evaluate
 from helper import print_progress, save_prediction, save_metrics, save_parameters
+import time
 
 # General config
 goal = 0 # Prediction objective
@@ -81,13 +82,13 @@ tuner_params = [
 # ]
 
 
-tuner_scoring = make_scorer(sa, greater_is_better=True)
+
 # tuner_cv = LeaveOneOut()
 tuner_cv = MonthlyCV()
-n_jobs = 1
+n_jobs = 3
 
 # Metrics
-metric_names = ["sa", "mar", "sdar", "mmre"]
+metric_names = ["sa", "sa_md", "mar", "mdar", "mmre", "mdmre"]
 
 for X, y in datasets:
     for model_class, search_space in zip(models, model_ranges):
@@ -96,6 +97,8 @@ for X, y in datasets:
             # For storing predicted values
             y_pred = []
             y_true = []
+            tuning_times = []
+            fitting_times = []
             
             for i, (train_index, test_index) in enumerate(cross_validation.split(X, y)):
                 
@@ -109,22 +112,34 @@ for X, y in datasets:
                 X_train, y_train = X.iloc[train_index,:], y.iloc[train_index]
                 X_test, y_test = X.iloc[test_index,:], y.iloc[test_index]
                 
+                # Make scorer
+                tuner_scoring = make_scorer(lambda yy_true, yy_pred:
+                                            sa(yy_true, yy_pred, y_train),
+                                            greater_is_better=True)
+                
                 model = model_class()
                 tuner = tuner_class(model, search_space, scoring=tuner_scoring, cv=tuner_cv, n_jobs = n_jobs, **tuner_settings)
                 
                 # Perform hyper-parameter tuning
+                
+                tuning_start = time.time()
                 tuner.fit(X_train, y_train)
+                tuning_time = time.time() - tuning_start
                 tuning_results = tuner.cv_results_
                 
                 # Re-fit model
                 # Redundant with refit parameter, done for sanity
                 best_params = tuner.best_params_
                 model.set_params(**best_params)
+                fit_start = time.time()
                 model.fit(X_train, y_train)
+                fit_time = time.time() - fit_start
                 
                 # Test and save metrics
                 y_pred.extend( model.predict(X_test) )
                 y_true.extend( y_test )
+                tuning_times.append(tuning_time)
+                fitting_times.append(fit_time)
                 
                 # Save results of tuning
                 save_parameters(dataset_name, goal, i, model_name, tuner_name, tuner.cv_results_)
@@ -132,11 +147,13 @@ for X, y in datasets:
             # Evaluate the obtained results
             y_true = np.rint(np.array(y_true))
             y_pred = np.array(y_pred)
-            metrics = evaluate(y_true, y_pred, metric_names)
+            metrics = evaluate(y_true, y_pred, metric_names, y_train)
             
             # Save results
-            save_prediction(dataset_name, goal, model_name, tuner_name, y_true, y_pred)
-            save_metrics(dataset_name, goal, model_name, tuner_name, metrics)
+            save_prediction(dataset_name, goal, model_name, tuner_name,
+                            y_true, y_pred, fitting_times, tuning_times)
+            save_metrics(dataset_name, goal, model_name, tuner_name, metrics,
+                         np.median(fitting_times), np.median(tuning_times))
             
             
 
