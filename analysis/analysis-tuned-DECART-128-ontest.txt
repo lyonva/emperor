@@ -1,0 +1,84 @@
+Goal: monthly_commits
+Result for sa:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -0.983,  -0.944,  -0.660
+   2 DefaultCV+DecisionTreeRegressor (*                        |                        ), -0.853,  -0.541,  0.810
+
+
+Goal: monthly_commits
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), 0.009,  0.076,  0.458
+   2 DefaultCV+DecisionTreeRegressor ( *-                      |                        ), 0.250,  0.579,  1.303
+
+
+Goal: monthly_contributors
+Result for sa:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -0.956,  -0.588
+   2 DefaultCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -0.449,  0.634
+
+
+Goal: monthly_contributors
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*-                       |                        ), 0.000,  0.021,  0.214
+   2 DefaultCV+DecisionTreeRegressor (    *-                   |                        ), 0.000,  0.333,  0.500
+
+
+Goal: monthly_stargazer
+Result for sa:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*--                      |                        ), -0.971,  -0.893,  -0.539
+   2 DefaultCV+DecisionTreeRegressor (*                        |                        ), -0.694,  -0.168,  1.584
+
+
+Goal: monthly_stargazer
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*-                       |                        ), 0.010,  0.040,  0.227
+   2 DefaultCV+DecisionTreeRegressor (  *--                    |                        ), 0.156,  0.424,  0.800
+
+
+Goal: monthly_open_PRs
+Result for sa:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -0.994,  -0.849
+   2 DefaultCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -0.796,  -0.221
+
+
+Goal: monthly_open_PRs
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), 0.000,  0.010,  0.184
+   2 DefaultCV+DecisionTreeRegressor (  *----                  |                        ), 0.000,  0.250,  0.738
+
+
+Goal: monthly_closed_PRs
+Result for sa:
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -1.000,  -0.000
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -1.000,  -0.751
+
+
+Goal: monthly_closed_PRs
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (*--                      |                        ), 0.000,  0.000,  1.000
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), 0.000,  0.000,  0.080
+
+
+Goal: monthly_open_issues
+Result for sa:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -0.919,  -0.491
+   2 DefaultCV+DecisionTreeRegressor ( *-                      |                        ), -1.000,  -0.000,  1.273
+
+
+Goal: monthly_open_issues
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*-                       |                        ), 0.000,  0.031,  0.231
+   2 DefaultCV+DecisionTreeRegressor (  *                      |                        ), 0.000,  0.667,  1.000
+
+
+Goal: monthly_closed_issues
+Result for sa:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*-                       |                        ), -0.997,  -0.957,  -0.805
+   2 DefaultCV+DecisionTreeRegressor (*-                       |                        ), -0.927,  -0.656,  -0.049
+
+
+Goal: monthly_closed_issues
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*--                      |                        ), 0.008,  0.039,  0.143
+   2 DefaultCV+DecisionTreeRegressor (    *---                 |                        ), 0.095,  0.333,  0.714
+
+

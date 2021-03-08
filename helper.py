@@ -11,10 +11,11 @@ class SingletonDataframes:
     __prediction_df__ = pd.DataFrame()
     __parameters_df__ = pd.DataFrame()
 
-def print_progress(dataset_name, i, model_name, tuner_name, obj_name):
+def print_progress(dataset_name, goal, i, model_name, tuner_name, obj_name):
     print("-"*40)
     print( datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S") )
     print("%10s: %25s" % ("dataset", dataset_name))
+    print("%10s: %25s" % ("goal", goal))
     print("%10s: %25s" % ("iteration", i))
     print("%10s: %25s" % ("model", model_name))
     print("%10s: %25s" % ("tuner", tuner_name))

@@ -8,15 +8,15 @@ import seaborn as sns
 sns.set_theme(style="whitegrid")
 sns.set_palette("gray", 3)
 
-data_dir = "../results"
-data_name = "result-metrics-goals-0-6+grid.csv"
-output_name = "analysis-goals-0-6+grid"
+data_dir = "../results/Replication"
+data_name = "emperor-metrics-DECART-128-online.csv"
+output_name = "analysis-tuned-DECART-128-online"
 dimensionality_name = "health_indicator_output.csv"
-random_n_name = "RandomN/result-metrics-goal0-randomN.csv"
+# random_n_name = "RandomN/result-metrics-goal0-randomN.csv"
 
 goal_names = ['monthly_commits', 'monthly_contributors', 'monthly_stargazer', 'monthly_open_PRs',
               'monthly_closed_PRs', 'monthly_open_issues', 'monthly_closed_issues']
-metrics = ["sa", "mar"]
+
 
 df = pd.read_csv(os.path.join(data_dir, data_name), sep=',')
 
@@ -26,6 +26,8 @@ df = df.sort_values(["goal", "dataset", "model", "tuner"])
 # Unique lists for filtering
 goals = np.unique(df["goal"])
 tuners = df["tuner"].unique()
+models = df["model"].unique()
+metrics = df["objective"].unique()
 
 sk_df = pd.DataFrame()
 
@@ -35,25 +37,31 @@ sys.stdout = open("%s.txt" % output_name, 'w')
 
 for goal in goals:
     goal_df = df[df["goal"] == goal]
-    
-    # Make one split per tuner
-    tuners_df = [ goal_df[ goal_df["tuner"] == tuner ] for tuner in tuners ]
-    tuner_dict = dict( zip( tuners, tuners_df ) )
-    
     # Now to scott-knott per metric
     for metric in metrics:
+    # Make one split per tuner and model
+        metric_df = goal_df[goal_df["objective"] == metric]
+        tuners_df = [ metric_df[ np.logical_and(metric_df["tuner"] == tuner, metric_df["model"] == model) ] for tuner in tuners for model in models ]
+        tuners_key = [ tuner + "+" + model for tuner in tuners for model in models ]
+        tuner_dict = dict( zip( tuners_key, tuners_df ) )
+    
+    
         # Select feature corresponding to metric
         met_list = [ list( tdf[metric] ) for tdf in tuners_df ]
-        met_dict = dict( zip( tuners, met_list ) )
+        if metric == "sa": # Flip sign if metric is not an error
+            met_list = [ [ -value for value in met_sublist ] for met_sublist in met_list  ]
+        met_dict = dict( zip( tuners_key, met_list ) )
         
         # Drop rows with na and inf
-        met_df = pd.DataFrame.from_dict( met_dict )
-        met_df = met_df.replace([np.inf, -np.inf], np.nan)
-        met_df = met_df.dropna(axis=0)
-        met_dict = met_df.to_dict("list")
+        # met_df = pd.DataFrame.from_dict( met_dict )
+        # met_df = met_df.replace([np.inf, -np.inf], np.nan)
+        # met_df = met_df.dropna(axis=0)
+        # met_dict = met_df.to_dict("list")
+        
+        # Invert metrics if they are mmre
         
         # Run scott-knott on current metric
-        print("Goal %s:" % goal_names[goal])
+        print("Goal: %s" % goal_names[goal])
         print("Result for %s:" % metric)
         sk_result = sk.Rx.sk(sk.Rx.data(**met_dict))
         sk.Rx.show(sk_result)
@@ -74,21 +82,29 @@ sys.stdout = original_stdout
 
 df_boxplot = df.melt(id_vars=["dataset", "goal", "model", "tuner"],
                      value_vars = metrics, var_name = "metric" )
+df_boxplot["name"] = df_boxplot["tuner"] + "+" + df_boxplot["model"]
+
 df_boxplot["rank"] = df_boxplot.apply( lambda x : sk_df[ (x["goal"] == sk_df["goal"]) &
                                                 (x["metric"] == sk_df["metric"]) &
-                                                (x["tuner"] == sk_df["tuner"])]["rank"].iloc[0], axis = 1)
+                                                (x["name"] == sk_df["tuner"])]["rank"].iloc[0], axis = 1)
 df_boxplot["goal_name"] = df_boxplot.apply( lambda x : goal_names[x["goal"]], axis = 1)
 df_boxplot["tuner_short"] = df_boxplot.apply( lambda x : 
                                              {'DifferentialEvolutionCV' : "DE",
                                               'DodgeCV' : "DODGE",
                                               'RandomRangeSearchCV' : "Random",
-                                              'GridSearchCV' : "Grid"
+                                              'GridSearchCV' : "Grid",
+                                              'DefaultCV' : "Default"
                                               }[x["tuner"]], axis = 1)
+df_boxplot["name"] = df_boxplot["tuner_short"] + "+" + df_boxplot["model"]
+df_boxplot["name"] = df_boxplot["name"].replace({'DE+DecisionTreeRegressor':"DECART",
+                                                 'Default+DecisionTreeRegressor':"CART"})
 
-sns.set(font_scale=1.4)
-plot = sns.catplot( x = "tuner_short", y = "value", col = "goal_name", row = "metric",
+
+sns.set(font_scale=3)
+plot = sns.catplot( x = "name", y = "value", col = "goal_name", row = "metric",
                   hue = "rank", data = df_boxplot, kind = "box", sharey = "row",
-                  legend = False, margin_titles = True, showfliers = False, height = 8)
+                  legend = False, margin_titles = True, showfliers = False, dodge=False,
+                  height = 8, aspect=0.75, palette = [sns.color_palette("Set1")[1], "white"])
 plot.set_axis_labels("", "").set_titles(row_template = '{row_name}', col_template = '{col_name}').set_xticklabels(rotation=0)
 plot.savefig("%s.png" % output_name)
 
@@ -141,28 +157,28 @@ for goal in goals:
   
     
 # Amount of explored values analysis
-df_random_n = pd.read_csv(os.path.join(data_dir, random_n_name), sep=',')
-df_random_n = df_random_n[df_random_n["sa"] > -5]
-# df_random_n = df_random_n[df_random_n["n"] > 0]
-# df_random_n["n"] = df_random_n["n"].replace(0,1)
+# df_random_n = pd.read_csv(os.path.join(data_dir, random_n_name), sep=',')
+# df_random_n = df_random_n[df_random_n["sa"] > -5]
+# # df_random_n = df_random_n[df_random_n["n"] > 0]
+# # df_random_n["n"] = df_random_n["n"].replace(0,1)
 
-fig, ax = plt.subplots()
-plot = sns.regplot(x = "n", y = "sa", data = df_random_n, order=2, color="b", x_estimator=np.median)
-plot.set(xlabel = "Amount of random samples (n)", ylabel = "SA", xlim = [0, 65])
-fig.set_size_inches(10, 5)
-plot.get_figure().savefig("randomN.png", dpi=300)
+# fig, ax = plt.subplots()
+# plot = sns.regplot(x = "n", y = "sa", data = df_random_n, order=2, color="b", x_estimator=np.median)
+# plot.set(xlabel = "Amount of random samples (n)", ylabel = "SA", xlim = [0, 65])
+# fig.set_size_inches(10, 5)
+# plot.get_figure().savefig("randomN.png", dpi=300)
 
-fig, ax = plt.subplots()
-plot = sns.boxplot(x = "n", y = "sa", data = df_random_n, color="b")
-plot.set(xlabel = "Amount of random samples (n)", ylabel = "SA", ylim = [-1,1])
-plot.get_figure().savefig("randomN.png", dpi=300)
-fig.set_size_inches(10, 5)
-plot.get_figure().savefig("randomN-Box.png", dpi=300)
+# fig, ax = plt.subplots()
+# plot = sns.boxplot(x = "n", y = "sa", data = df_random_n, color="b")
+# plot.set(xlabel = "Amount of random samples (n)", ylabel = "SA", ylim = [-1,1])
+# plot.get_figure().savefig("randomN.png", dpi=300)
+# fig.set_size_inches(10, 5)
+# plot.get_figure().savefig("randomN-Box.png", dpi=300)
 
-fig, ax = plt.subplots()
-plot = sns.boxplot(x = "n", y = "mar", data = df_random_n, color="b")
-plot.set(xlabel = "Amount of random samples (n)", ylabel = "MAR")
-plot.get_figure().savefig("randomN.png", dpi=300)
-fig.set_size_inches(10, 5)
-plot.get_figure().savefig("randomN-Box-MAR.png", dpi=300)
+# fig, ax = plt.subplots()
+# plot = sns.boxplot(x = "n", y = "mar", data = df_random_n, color="b")
+# plot.set(xlabel = "Amount of random samples (n)", ylabel = "MAR")
+# plot.get_figure().savefig("randomN.png", dpi=300)
+# fig.set_size_inches(10, 5)
+# plot.get_figure().savefig("randomN-Box-MAR.png", dpi=300)
 

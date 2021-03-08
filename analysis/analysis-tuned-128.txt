@@ -1,0 +1,6 @@
+Goal: monthly_commits
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), 0.017,  0.091,  0.489
+   2 DefaultCV+DecisionTreeRegressor ( *                       |                        ), 0.294,  0.667,  1.350
+
+

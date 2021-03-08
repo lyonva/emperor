@@ -1,0 +1,126 @@
+Goal: monthly_commits
+Result for sa:
+   1 DefaultCV+LinearRegression (                         |                       *), -1.239,  0.130,  0.669
+   2 DefaultCV+SVR (                         |                       *), -0.064,  0.343,  0.632
+   2 DefaultCV+KNeighborsRegressor (                         |                       *), -0.229,  0.410,  0.780
+   2 DefaultCV+DecisionTreeRegressor (                         |                       *), -0.513,  0.498,  0.881
+   2 DefaultCV+RandomForestRegressor (                         |                       *), -0.240,  0.500,  0.808
+
+
+Goal: monthly_commits
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), 0.240,  0.569,  1.167
+   1 DefaultCV+RandomForestRegressor (*                        |                        ), 0.220,  0.605,  1.661
+   1 DefaultCV+KNeighborsRegressor (*                        |                        ), 0.265,  0.617,  1.600
+   2 DefaultCV+SVR (*                        |                        ), 0.322,  0.705,  1.834
+   3 DefaultCV+LinearRegression (*                        |                        ), 0.390,  1.049,  3.293
+
+
+Goal: monthly_contributors
+Result for sa:
+   1 DefaultCV+LinearRegression (                         |                       *), -1.367,  0.087,  0.602
+   2 DefaultCV+KNeighborsRegressor (                         |                       *), -0.520,  0.237,  0.638
+   2 DefaultCV+SVR (                         |                       *), -0.293,  0.266,  0.589
+   3 DefaultCV+RandomForestRegressor (                         |                       *), -0.320,  0.390,  0.765
+   4 DefaultCV+DecisionTreeRegressor (                         |                       *), -0.486,  0.500,  1.000
+
+
+Goal: monthly_contributors
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (*-                       |                        ), 0.000,  0.250,  0.667
+   1 DefaultCV+RandomForestRegressor ( *                       |                        ), 0.105,  0.264,  0.590
+   2 DefaultCV+SVR (*                        |                        ), 0.149,  0.329,  0.762
+   2 DefaultCV+KNeighborsRegressor ( *                       |                        ), 0.186,  0.400,  0.800
+   3 DefaultCV+LinearRegression (*                        |                        ), 0.191,  0.444,  1.068
+
+
+Goal: monthly_stargazer
+Result for sa:
+   1 DefaultCV+LinearRegression (                         |                       *), -2.431,  -0.088,  0.546
+   2 DefaultCV+SVR (                         |                       *), -0.190,  0.124,  0.529
+   2 DefaultCV+DecisionTreeRegressor (                         |                       *), -0.912,  0.221,  0.706
+   2 DefaultCV+KNeighborsRegressor (                         |                       *), -0.304,  0.228,  0.662
+   2 DefaultCV+RandomForestRegressor (                         |                       *), -0.594,  0.269,  0.709
+
+
+Goal: monthly_stargazer
+Result for mmre:
+   1 DefaultCV+RandomForestRegressor (*                        |                        ), 0.144,  0.323,  0.718
+   1 DefaultCV+KNeighborsRegressor (*                        |                        ), 0.143,  0.330,  0.692
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), 0.158,  0.365,  0.764
+   1 DefaultCV+SVR ( *                       |                        ), 0.169,  0.373,  0.727
+   2 DefaultCV+LinearRegression (*                        |                        ), 0.196,  0.540,  1.431
+
+
+Goal: monthly_open_PRs
+Result for sa:
+   1 DefaultCV+SVR (                         |                       *), -0.050,  0.361,  0.700
+   2 DefaultCV+LinearRegression (                         |                       *), -0.237,  0.583,  0.872
+   3 DefaultCV+KNeighborsRegressor (                         |                       *), 0.087,  0.610,  0.913
+   4 DefaultCV+RandomForestRegressor (                         |                       *), 0.229,  0.724,  0.919
+   5 DefaultCV+DecisionTreeRegressor (                         |                       *), 0.161,  0.831,  1.000
+
+
+Goal: monthly_open_PRs
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor ( *-                      |                        ), 0.000,  0.194,  0.667
+   2 DefaultCV+RandomForestRegressor ( *--                     |                        ), 0.090,  0.334,  1.020
+   3 DefaultCV+KNeighborsRegressor ( *-                      |                        ), 0.077,  0.379,  1.000
+   4 DefaultCV+LinearRegression ( *                       |                        ), 0.229,  0.717,  1.278
+   4 DefaultCV+SVR (*                        |                        ), 0.291,  0.717,  1.269
+
+
+Goal: monthly_closed_PRs
+Result for sa:
+   1 DefaultCV+LinearRegression (                         |                       *), -1.305,  0.000,  0.649
+   2 DefaultCV+SVR (                         |                       *), -0.321,  0.230,  0.697
+   3 DefaultCV+RandomForestRegressor (                         |                       *), -0.204,  0.483,  0.908
+   3 DefaultCV+KNeighborsRegressor (                         |                       *), -0.122,  0.488,  1.000
+   4 DefaultCV+DecisionTreeRegressor (                         |                       *), -0.177,  1.000,  1.000
+
+
+Goal: monthly_closed_PRs
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (*-                       |                        ), 0.000,  0.000,  1.000
+   2 DefaultCV+KNeighborsRegressor (    *---                 |                        ), 0.000,  0.600,  1.200
+   3 DefaultCV+RandomForestRegressor (     *--                 |                        ), 0.133,  0.850,  1.270
+   4 DefaultCV+SVR (     *                   |                        ), 0.626,  1.061,  1.216
+   5 DefaultCV+LinearRegression ( *                       |                        ), 0.897,  1.156,  1.675
+
+
+Goal: monthly_open_issues
+Result for sa:
+   1 DefaultCV+LinearRegression (                         |                       *), -2.586,  -0.399,  0.316
+   2 DefaultCV+KNeighborsRegressor (                         |                       *), -0.840,  0.040,  0.603
+   2 DefaultCV+SVR (                         |                       *), -0.364,  0.054,  0.488
+   2 DefaultCV+RandomForestRegressor (                         |                       *), -0.939,  0.072,  0.608
+   2 DefaultCV+DecisionTreeRegressor (                         |                       *), -1.136,  0.116,  1.000
+
+
+Goal: monthly_open_issues
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), 0.000,  0.500,  1.000
+   2 DefaultCV+KNeighborsRegressor ( *                       |                        ), 0.200,  0.600,  1.400
+   2 DefaultCV+RandomForestRegressor (  *-                     |                        ), 0.230,  0.680,  1.410
+   2 DefaultCV+SVR (  *-                     |                        ), 0.360,  0.760,  1.145
+   3 DefaultCV+LinearRegression (*                        |                        ), 0.435,  1.119,  2.131
+
+
+Goal: monthly_closed_issues
+Result for sa:
+   1 DefaultCV+SVR (                         |                       *), -0.056,  0.277,  0.580
+   1 DefaultCV+LinearRegression (                         |                       *), -0.497,  0.477,  0.812
+   2 DefaultCV+KNeighborsRegressor (                         |                       *), -0.054,  0.489,  0.810
+   3 DefaultCV+RandomForestRegressor (                         |                       *), 0.069,  0.639,  0.872
+   3 DefaultCV+DecisionTreeRegressor (                         |                       *), 0.000,  0.652,  0.916
+
+
+Goal: monthly_closed_issues
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), 0.083,  0.300,  0.700
+   1 DefaultCV+RandomForestRegressor (*                        |                        ), 0.120,  0.303,  0.770
+   2 DefaultCV+KNeighborsRegressor (*                        |                        ), 0.171,  0.400,  0.825
+   3 DefaultCV+LinearRegression (*                        |                        ), 0.187,  0.471,  1.231
+   3 DefaultCV+SVR (*                        |                        ), 0.261,  0.527,  1.160
+
+

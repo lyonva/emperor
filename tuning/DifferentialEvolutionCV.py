@@ -46,8 +46,6 @@ class DifferentialEvolutionCV(BaseSearchCV):
         results = evaluate_candidates(population_denorm)
         population_index = np.arange(self.population_size, dtype=int)
         
-        # best_idx = np.argmin( results["rank_test_score"] )
-        # best = results["params"][best_idx]
         
         # Simulate a certain amount of generations
         for i in range(self.iterations):
@@ -83,7 +81,7 @@ class DifferentialEvolutionCV(BaseSearchCV):
             results = evaluate_candidates(population_trial_denorm)
             
             # Select new individuals
-            fitness = results[self.rank_test_name_]
+            fitness = results[self.mean_test_name_]
             for j in range(self.population_size):
                 old = population_index[j]
                 new = j + (i + 1) * self.population_size

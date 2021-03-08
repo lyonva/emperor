@@ -1,0 +1,84 @@
+Goal: monthly_commits
+Result for sa:
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), -0.858,  -0.635,  0.420
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -0.828,  -0.546,  0.515
+
+
+Goal: monthly_commits
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor ( *--                     |                        ), 0.286,  0.535,  1.667
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), 0.250,  0.657,  1.808
+
+
+Goal: monthly_contributors
+Result for sa:
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -0.547,  0.450
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*-                       |                        ), -0.894,  -0.461,  0.424
+
+
+Goal: monthly_contributors
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (   *---                  |                        ), 0.077,  0.289,  0.625
+   1 DefaultCV+DecisionTreeRegressor (    *-                   |                        ), 0.000,  0.333,  0.500
+
+
+Goal: monthly_stargazer
+Result for sa:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -0.760,  -0.324,  0.560
+   2 DefaultCV+DecisionTreeRegressor (*                        |                        ), -0.592,  0.012,  1.584
+
+
+Goal: monthly_stargazer
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor ( *-                      |                        ), 0.148,  0.315,  0.623
+   1 DefaultCV+DecisionTreeRegressor (  *--                    |                        ), 0.179,  0.392,  0.779
+
+
+Goal: monthly_open_PRs
+Result for sa:
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -0.796,  -0.241
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -0.964,  -0.747,  -0.343
+
+
+Goal: monthly_open_PRs
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (  *---                   |                        ), 0.000,  0.214,  0.667
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (  *-----                 |                        ), 0.013,  0.286,  1.000
+
+
+Goal: monthly_closed_PRs
+Result for sa:
+   1 DefaultCV+DecisionTreeRegressor (*                        |                        ), -1.000,  -1.000,  0.040
+   2 DifferentialEvolutionCV+DecisionTreeRegressor (*-                       |                        ), -1.000,  -0.466,  0.681
+
+
+Goal: monthly_closed_PRs
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (*--                      |                        ), 0.000,  0.000,  1.000
+   2 DifferentialEvolutionCV+DecisionTreeRegressor (  *--------              |                        ), 0.000,  0.211,  1.188
+
+
+Goal: monthly_open_issues
+Result for sa:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*                        |                        ), -0.624,  -0.064,  0.756
+   1 DefaultCV+DecisionTreeRegressor ( *--                     |                        ), -1.000,  -0.000,  1.784
+
+
+Goal: monthly_open_issues
+Result for mmre:
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (  *-                     |                        ), 0.133,  0.542,  1.185
+   1 DefaultCV+DecisionTreeRegressor (     *---                |                        ), 0.000,  0.571,  1.000
+
+
+Goal: monthly_closed_issues
+Result for sa:
+   1 DefaultCV+DecisionTreeRegressor (*-                       |                        ), -0.932,  -0.659,  0.004
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (*-                       |                        ), -0.890,  -0.659,  0.084
+
+
+Goal: monthly_closed_issues
+Result for mmre:
+   1 DefaultCV+DecisionTreeRegressor (    *---                 |                        ), 0.083,  0.333,  0.714
+   1 DifferentialEvolutionCV+DecisionTreeRegressor (    *----                |                        ), 0.095,  0.347,  0.800
+
+
