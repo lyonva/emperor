@@ -12,7 +12,7 @@ class DataLoader(ABC):
         if path == os.path.join("data", "ph_1628"):
             return DataLoader1628( os.path.join(path,"data_selected") )
         elif path == os.path.join("data", "ph_names"):
-            return DataLoaderNames( os.path.join(path,"data_cleaned") )
+            return DataLoaderNames( os.path.join(path,"data_selected") )
     
     def get_num_datasets(self):
         return len(self.get_dataset_list())
