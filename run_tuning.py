@@ -1,7 +1,8 @@
 # Datasets
 import numpy as np
 import pandas as pd
-from data import load_datasets
+from data.DataLoader import DataLoader
+import os
 
 # Cross-validation
 from comp.OnlineCV import OnlineCV
@@ -32,11 +33,13 @@ from tuning import DodgeCV
 # Pre-processing
 from sklearn.preprocessing import MinMaxScaler
 
-
-# General config
-goals = [0,1,2,3,4,5,6] # Prediction objective
+# Dataset and goal loader
+data_dir = os.path.join("data","ph_names") # Datasets you want to use
+loader = DataLoader.get_loader_instance(data_dir)
+goals = loader.get_objectives()
+datasets = loader.get_datasets()
 # goals = [0]
-data_dir = "data/data_selected" # Datasets you want to use
+
 
 # cross_validation = OnlineCV()
 cross_validation = MonthlyCV()
@@ -143,14 +146,15 @@ prep = MinMaxScaler()
 metric_names = ["sa", "sa_md", "mar", "mdar", "mmre", "mdmre"]
 
 for goal in goals:
-    datasets = load_datasets(data_dir, goal)
-    for X, y in datasets:
+    
+    for ds_name in datasets:
+        
+        X, y = loader.load_dataset(ds_name, goal)
         
         # Normalize dataset
         X_norm = prep.fit_transform(X)
-        X_name = X.name
         X = pd.DataFrame(X_norm, columns = X.columns, index = X.index)
-        X.name = X_name
+        X.name = ds_name
         
         for model_class, search_space in zip(models, model_ranges):
             for tuner_class, tuner_settings in zip(tuners, tuner_params):
